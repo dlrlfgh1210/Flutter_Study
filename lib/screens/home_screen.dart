@@ -9,23 +9,66 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  static const twentyFiveMinutes = 1500;
-  int totalSeconds = twentyFiveMinutes;
+  int totalSeconds = 0;
   bool isRunning = false;
-  int totalPomodoros = 0;
+  int totalRounds = 0;
+  int totalGoals = 0;
+  int breakTime = 3;
+  int selectedNumber = 0;
+
   late Timer timer;
 
   void onTick(Timer timer) {
     if (totalSeconds == 0) {
       setState(() {
-        totalPomodoros = totalPomodoros + 1;
+        totalRounds = totalRounds + 1;
         isRunning = false;
-        totalSeconds = twentyFiveMinutes;
+        breakTime;
       });
-      timer.cancel();
+      Timer.periodic(
+        const Duration(seconds: 1),
+        onBreakTime,
+      );
+      print('im dont know');
+      print('im stupid');
+
+      if (breakTime == 0) {
+        setState(() {
+          totalSeconds = selectedNumber;
+          breakTime;
+        });
+        Timer.periodic(
+          const Duration(seconds: 1),
+          onBreakTime,
+        );
+        timer.cancel();
+      } else {
+        setState(() {
+          breakTime = breakTime - 1;
+        });
+      }
+
+      print('hello');
+      //timer.cancel();
     } else {
       setState(() {
         totalSeconds = totalSeconds - 1;
+      });
+      print(totalSeconds);
+    }
+
+    if (totalRounds == 5) {
+      setState(() {
+        totalRounds = 0;
+        isRunning = false;
+        totalGoals = totalGoals + 1;
+      });
+    }
+    if (totalGoals == 13) {
+      setState(() {
+        totalRounds = 0;
+        totalGoals = 0;
+        isRunning = false;
       });
     }
   }
@@ -47,6 +90,25 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
+  void onResumePressed() {
+    timer.cancel();
+    setState(() {
+      isRunning = false;
+      totalSeconds = selectedNumber;
+    });
+  }
+
+  void onBreakTime(Timer timer) {
+    if (breakTime == 0) {
+      setState(() {
+        isRunning = false;
+        totalRounds == totalRounds;
+        totalGoals == totalGoals;
+      });
+      timer.cancel();
+    }
+  }
+
   String format(int seconds) {
     var duration = Duration(seconds: seconds);
     return duration.toString().split(".").first.substring(2, 7);
@@ -59,11 +121,11 @@ class _HomeScreenState extends State<HomeScreen> {
       body: Column(
         children: [
           Flexible(
-            flex: 1,
+            flex: 2,
             child: Container(
               alignment: Alignment.bottomCenter,
               child: Text(
-                format(totalSeconds),
+                totalSeconds == 0 ? format(breakTime) : format(totalSeconds),
                 style: TextStyle(
                   color: Theme.of(context).cardColor,
                   fontSize: 89,
@@ -73,16 +135,180 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
           Flexible(
-            flex: 3,
-            child: Center(
-              child: IconButton(
-                iconSize: 120,
-                color: Theme.of(context).cardColor,
-                onPressed: isRunning ? onPausePressed : onStartPressed,
-                icon: Icon(isRunning
-                    ? Icons.pause_circle_outline
-                    : Icons.play_circle_outline),
-              ),
+            flex: 2,
+            child: Row(
+              children: [
+                Center(
+                  child: IconButton(
+                    iconSize: 80,
+                    color: Theme.of(context).cardColor,
+                    onPressed: isRunning ? onPausePressed : onStartPressed,
+                    icon: Icon(isRunning
+                        ? Icons.pause_circle_outline
+                        : Icons.play_circle_outline),
+                  ),
+                ),
+                const SizedBox(
+                  width: 10,
+                ),
+                Center(
+                  child: IconButton(
+                    iconSize: 80,
+                    color: Theme.of(context).cardColor,
+                    onPressed: isRunning ? () {} : onResumePressed,
+                    icon: Icon(isRunning ? null : Icons.refresh_outlined),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Row(
+              children: [
+                GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      totalSeconds = 6;
+                      selectedNumber = 6;
+                    });
+                  },
+                  child: Container(
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                        color: Colors.white,
+                        width: 2,
+                      ),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: const Padding(
+                      padding: EdgeInsets.all(5),
+                      child: Text(
+                        '15',
+                        style: TextStyle(
+                          fontSize: 40,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  width: 40,
+                ),
+                GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      totalSeconds = 1200;
+                      selectedNumber = 1200;
+                    });
+                  },
+                  child: Container(
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                        color: Colors.white,
+                        width: 2,
+                      ),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: const Padding(
+                      padding: EdgeInsets.all(5),
+                      child: Text(
+                        '20',
+                        style: TextStyle(
+                          fontSize: 40,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  width: 40,
+                ),
+                GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      totalSeconds = 1500;
+                      selectedNumber = 1500;
+                    });
+                  },
+                  child: Container(
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                        color: Colors.white,
+                        width: 2,
+                      ),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: const Padding(
+                      padding: EdgeInsets.all(5),
+                      child: Text(
+                        '25',
+                        style: TextStyle(
+                          fontSize: 40,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  width: 40,
+                ),
+                GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      totalSeconds = 1800;
+                      selectedNumber = 1800;
+                    });
+                  },
+                  child: Container(
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                        color: Colors.white,
+                        width: 2,
+                      ),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: const Padding(
+                      padding: EdgeInsets.all(5),
+                      child: Text(
+                        '30',
+                        style: TextStyle(
+                          fontSize: 40,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  width: 40,
+                ),
+                GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      totalSeconds = 2100;
+                      selectedNumber = 2100;
+                    });
+                  },
+                  child: Container(
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                        color: Colors.white,
+                        width: 2,
+                      ),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: const Padding(
+                      padding: EdgeInsets.all(5),
+                      child: Text(
+                        '35',
+                        style: TextStyle(
+                          fontSize: 40,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
           Flexible(
@@ -90,37 +316,65 @@ class _HomeScreenState extends State<HomeScreen> {
             child: Row(
               children: [
                 Expanded(
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: Theme.of(context).cardColor,
-                      borderRadius: const BorderRadius.only(
-                        topLeft: Radius.circular(50),
-                        topRight: Radius.circular(50),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Column(
+                        children: [
+                          Text(
+                            '$totalRounds/4',
+                            style: TextStyle(
+                              fontSize: 58,
+                              fontWeight: FontWeight.w600,
+                              color: Theme.of(context)
+                                  .textTheme
+                                  .displayLarge!
+                                  .color,
+                            ),
+                          ),
+                          Text(
+                            'ROUND',
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.w600,
+                              color: Theme.of(context)
+                                  .textTheme
+                                  .displayLarge!
+                                  .color,
+                            ),
+                          ),
+                        ],
                       ),
-                    ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          'Pomodoros',
-                          style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.w600,
-                            color:
-                                Theme.of(context).textTheme.displayLarge!.color,
+                      const SizedBox(
+                        width: 100,
+                      ),
+                      Column(
+                        children: [
+                          Text(
+                            '$totalGoals/12',
+                            style: TextStyle(
+                              fontSize: 58,
+                              fontWeight: FontWeight.w600,
+                              color: Theme.of(context)
+                                  .textTheme
+                                  .displayLarge!
+                                  .color,
+                            ),
                           ),
-                        ),
-                        Text(
-                          '$totalPomodoros',
-                          style: TextStyle(
-                            fontSize: 58,
-                            fontWeight: FontWeight.w600,
-                            color:
-                                Theme.of(context).textTheme.displayLarge!.color,
+                          Text(
+                            'GOAL',
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.w600,
+                              color: Theme.of(context)
+                                  .textTheme
+                                  .displayLarge!
+                                  .color,
+                            ),
                           ),
-                        ),
-                      ],
-                    ),
+                        ],
+                      ),
+                    ],
                   ),
                 ),
               ],
