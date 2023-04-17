@@ -13,7 +13,7 @@ class _HomeScreenState extends State<HomeScreen> {
   bool isRunning = false;
   int totalRounds = 0;
   int totalGoals = 0;
-  int breakTime = 3;
+  int breakTime = 300;
   int selectedNumber = 0;
 
   late Timer timer;
@@ -29,8 +29,6 @@ class _HomeScreenState extends State<HomeScreen> {
         const Duration(seconds: 1),
         onBreakTime,
       );
-      print('im dont know');
-      print('im stupid');
 
       if (breakTime == 0) {
         setState(() {
@@ -42,19 +40,11 @@ class _HomeScreenState extends State<HomeScreen> {
           onBreakTime,
         );
         timer.cancel();
-      } else {
-        setState(() {
-          breakTime = breakTime - 1;
-        });
       }
-
-      print('hello');
-      //timer.cancel();
     } else {
       setState(() {
         totalSeconds = totalSeconds - 1;
       });
-      print(totalSeconds);
     }
 
     if (totalRounds == 5) {
@@ -102,10 +92,14 @@ class _HomeScreenState extends State<HomeScreen> {
     if (breakTime == 0) {
       setState(() {
         isRunning = false;
-        totalRounds == totalRounds;
-        totalGoals == totalGoals;
+        totalRounds = totalRounds;
+        totalGoals = totalGoals;
       });
       timer.cancel();
+    } else {
+      setState(() {
+        breakTime = breakTime - 1;
+      });
     }
   }
 
@@ -169,8 +163,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 GestureDetector(
                   onTap: () {
                     setState(() {
-                      totalSeconds = 6;
-                      selectedNumber = 6;
+                      totalSeconds = 900;
+                      selectedNumber = 900;
                     });
                   },
                   child: Container(
