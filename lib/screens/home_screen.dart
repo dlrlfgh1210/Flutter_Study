@@ -11,7 +11,6 @@ class HomeScreen extends StatelessWidget {
         elevation: 0,
         backgroundColor: Theme.of(context).colorScheme.background,
         title: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Image.asset(
               'assets/Toss_Logo_Primary_Reverse.png',
@@ -20,10 +19,16 @@ class HomeScreen extends StatelessWidget {
               height: 100,
               fit: BoxFit.fill,
             ),
+            const SizedBox(
+              width: 200,
+            ),
             const Icon(
               Icons.location_pin,
               color: Colors.amber,
               size: 30,
+            ),
+            const SizedBox(
+              width: 15,
             ),
             const Icon(
               Icons.notifications,
@@ -40,17 +45,18 @@ class HomeScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
-                height: 50,
+                padding: const EdgeInsets.all(10),
+                height: 100,
                 decoration: BoxDecoration(
                   color: Theme.of(context).cardColor,
                   borderRadius: BorderRadius.circular(20),
                 ),
                 child: const Padding(
                   padding: EdgeInsets.all(
-                    10,
+                    15,
                   ),
                   child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
@@ -58,7 +64,7 @@ class HomeScreen extends StatelessWidget {
                         style: TextStyle(
                           color: Colors.black,
                           fontWeight: FontWeight.bold,
-                          fontSize: 20,
+                          fontSize: 25,
                         ),
                       ),
                       Icon(
@@ -101,10 +107,6 @@ class HomeScreen extends StatelessWidget {
                         size: 40,
                       ),
                     ),
-                    Container(
-                      height: 1,
-                      color: Colors.red,
-                    ),
                     ListTile(
                       onTap: () {
                         print('kakao_자산');
@@ -114,7 +116,7 @@ class HomeScreen extends StatelessWidget {
                         backgroundImage: AssetImage('assets/kakao_bank.png'),
                       ),
                       title: const Text(
-                        '입출금통장',
+                        '카카오뱅크통장',
                         style: TextStyle(
                           fontWeight: FontWeight.w300,
                           fontSize: 30,
@@ -150,21 +152,16 @@ class HomeScreen extends StatelessWidget {
                         ),
                       ),
                     ),
-
-                    Container(
-                      height: 1,
-                      color: Colors.red,
-                    ),
                     ListTile(
                       onTap: () {
-                        print('kakao_자산');
+                        print('kb_자산');
                       },
                       leading: const CircleAvatar(
                         radius: 30,
-                        backgroundImage: AssetImage('assets/kakao_bank.png'),
+                        backgroundImage: AssetImage('assets/kb_logo.jpg'),
                       ),
                       title: const Text(
-                        '입출금통장',
+                        '국민은행통장',
                         style: TextStyle(
                           fontWeight: FontWeight.w300,
                           fontSize: 30,
@@ -179,7 +176,7 @@ class HomeScreen extends StatelessWidget {
                       ),
                       trailing: GestureDetector(
                         onTap: () {
-                          print('kakao_송금');
+                          print('kb_송금');
                         },
                         child: Container(
                           height: 50,
@@ -201,9 +198,50 @@ class HomeScreen extends StatelessWidget {
                       ),
                     ),
                     //추가
-                    Container(
-                      height: 1,
-                      color: Colors.red,
+                    ListTile(
+                      onTap: () {
+                        print('kakao_자산');
+                      },
+                      leading: const CircleAvatar(
+                        radius: 30,
+                        backgroundImage: AssetImage('assets/kakao_bank.png'),
+                      ),
+                      title: const Text(
+                        '입출금통장',
+                        style: TextStyle(
+                          fontWeight: FontWeight.w300,
+                          fontSize: 30,
+                        ),
+                      ),
+                      subtitle: const Text(
+                        '잔액보기',
+                        style: TextStyle(
+                          fontWeight: FontWeight.w900,
+                          fontSize: 20,
+                        ),
+                      ),
+                      trailing: GestureDetector(
+                        onTap: () {
+                          print('kakao_송금');
+                        },
+                        child: Container(
+                          height: 50,
+                          width: 50,
+                          decoration: BoxDecoration(
+                            color: Theme.of(context).colorScheme.background,
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: const Center(
+                            child: Text(
+                              '송금',
+                              style: TextStyle(
+                                fontWeight: FontWeight.w200,
+                                fontSize: 20,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
                     ),
                     ListTile(
                       onTap: () {
@@ -250,10 +288,6 @@ class HomeScreen extends StatelessWidget {
                         ),
                       ),
                     ),
-                    Container(
-                      height: 1,
-                      color: Colors.red,
-                    ),
                     ListTile(
                       onTap: () {
                         print('kakao_자산');
@@ -298,108 +332,6 @@ class HomeScreen extends StatelessWidget {
                           ),
                         ),
                       ),
-                    ),
-                    Container(
-                      height: 1,
-                      color: Colors.red,
-                    ),
-                    ListTile(
-                      onTap: () {
-                        print('kakao_자산');
-                      },
-                      leading: const CircleAvatar(
-                        radius: 30,
-                        backgroundImage: AssetImage('assets/kakao_bank.png'),
-                      ),
-                      title: const Text(
-                        '입출금통장',
-                        style: TextStyle(
-                          fontWeight: FontWeight.w300,
-                          fontSize: 30,
-                        ),
-                      ),
-                      subtitle: const Text(
-                        '잔액보기',
-                        style: TextStyle(
-                          fontWeight: FontWeight.w900,
-                          fontSize: 20,
-                        ),
-                      ),
-                      trailing: GestureDetector(
-                        onTap: () {
-                          print('kakao_송금');
-                        },
-                        child: Container(
-                          height: 50,
-                          width: 50,
-                          decoration: BoxDecoration(
-                            color: Theme.of(context).colorScheme.background,
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          child: const Center(
-                            child: Text(
-                              '송금',
-                              style: TextStyle(
-                                fontWeight: FontWeight.w200,
-                                fontSize: 20,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                    Container(
-                      height: 1,
-                      color: Colors.red,
-                    ),
-                    ListTile(
-                      onTap: () {
-                        print('kakao_자산');
-                      },
-                      leading: const CircleAvatar(
-                        radius: 30,
-                        backgroundImage: AssetImage('assets/kakao_bank.png'),
-                      ),
-                      title: const Text(
-                        '입출금통장',
-                        style: TextStyle(
-                          fontWeight: FontWeight.w300,
-                          fontSize: 30,
-                        ),
-                      ),
-                      subtitle: const Text(
-                        '잔액보기',
-                        style: TextStyle(
-                          fontWeight: FontWeight.w900,
-                          fontSize: 20,
-                        ),
-                      ),
-                      trailing: GestureDetector(
-                        onTap: () {
-                          print('kakao_송금');
-                        },
-                        child: Container(
-                          height: 50,
-                          width: 50,
-                          decoration: BoxDecoration(
-                            color: Theme.of(context).colorScheme.background,
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          child: const Center(
-                            child: Text(
-                              '송금',
-                              style: TextStyle(
-                                fontWeight: FontWeight.w200,
-                                fontSize: 20,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                    Container(
-                      height: 1,
-                      color: Colors.red,
                     ),
                     ListTile(
                       onTap: () {
